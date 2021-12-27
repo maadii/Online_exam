@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online_exam", "Online_exam\Online_exam.csproj", "{B3B5B6A3-3A6B-4E92-9FCA-C3DF0CD02CCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{F84994DF-1DA5-4263-85E3-311589A46C7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B3B5B6A3-3A6B-4E92-9FCA-C3DF0CD02CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3B5B6A3-3A6B-4E92-9FCA-C3DF0CD02CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3B5B6A3-3A6B-4E92-9FCA-C3DF0CD02CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
