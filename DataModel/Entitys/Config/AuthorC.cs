@@ -15,7 +15,7 @@ namespace DataModel.Entitys.Config
             HasKey(a => a.ID);
             Property(a => a.Name).HasMaxLength(150).IsRequired();
             Property(a => a.LastName).HasMaxLength(150).IsRequired();
-            Property(a => a.Rank).IsRequired();
+           // Property(a => a.Rank).IsRequired();
 
         }
     }

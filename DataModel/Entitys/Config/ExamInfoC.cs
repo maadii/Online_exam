@@ -12,7 +12,7 @@ namespace DataModel.Entitys.Config
 
         public void ExamInfoConfig()
         {
-            HasKey(a => a.ExamNumber);
+            HasKey(a => a.ID);
             Property(a => a.ExamDate).IsRequired();
           
         }

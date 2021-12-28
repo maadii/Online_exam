@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static DataModel.DBExam;
-
+using static DataModel.DBModel;
 
 namespace DataModel.Entitys
 {
@@ -15,6 +13,6 @@ namespace DataModel.Entitys
         public string LastName { get; set; }
         public GenderType Genders { get; set; }
         public int NationalCode { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
     }
 }

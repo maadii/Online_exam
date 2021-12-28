@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DataModel.DBExam;
-
-
+using static DataModel.DBModel;
 
 namespace DataModel.Entitys
 {
