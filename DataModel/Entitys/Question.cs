@@ -11,6 +11,7 @@ namespace DataModel.Entitys
     public class Question
     {
         public int ID { get; set; }
+        public QuestionType QuestionType { get; set; }
         public Hardness Hardnes { get; set; }
         public string Title { get; set; }
         public string Hint { get; set; }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online_exam", "Online_exam\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{F84994DF-1DA5-4263-85E3-311589A46C7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{A6F87A1F-0E35-4B74-A419-F171672775AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84994DF-1DA5-4263-85E3-311589A46C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F87A1F-0E35-4B74-A419-F171672775AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F87A1F-0E35-4B74-A419-F171672775AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F87A1F-0E35-4B74-A419-F171672775AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F87A1F-0E35-4B74-A419-F171672775AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
