@@ -21,6 +21,6 @@ namespace Online_exam
                 ctx.SaveChanges();
             }
         }
-        public data
+       
     }
 }
