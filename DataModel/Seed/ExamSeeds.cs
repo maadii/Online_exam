@@ -15,6 +15,7 @@ namespace DataModel.Seed
             IList<ExamInfo> defaultExamInfo = new List<ExamInfo>();
             IList<Question> defaultQuestion = new List<Question>();
             IList<MultipleChoice> defaultMultipleChoice = new List<MultipleChoice>();
+            IList<Result> defaultResults = new List<Result>();
             /*
              * Add Exam inforamtion to  Database
              */
@@ -130,9 +131,17 @@ namespace DataModel.Seed
 
 
             });
+
+            defaultResults.Add (new Result(){
+                ResultDate = DateTime.Today,
+                SpendTime = "3:30",
+                Student = new Student() { Name = "moien", LastName = "vdfv", NationalCode = 1235535 },
+            });
+
             context.Questions.AddRange(defaultQuestion);
             context.ExamInfos.AddRange(defaultExamInfo);
             context.MultipleChoices.AddRange(defaultMultipleChoice);
+            context.Results.AddRange(defaultResults);
 
             base.Seed(context);
         }
