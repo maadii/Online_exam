@@ -7,22 +7,22 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Components.ExamGenerator;
+using static DataModel.DBModel;
 
 namespace Components
 {
     public class DBInstanc
     {
+        
         //use singleton pattern
-        private static readonly DBInstanc instance = new DBInstanc();
-        
-        
+        private static readonly DBInstanc instance = new DBInstanc();          
         static DBInstanc()
         {
 
         }
-        private DBInstanc()
+         private DBInstanc()
         {
-            
         }
         public static DBInstanc Instance
         {
@@ -69,8 +69,9 @@ namespace Components
                 int r = rand.Next(0, ExamInfos.Count);
                 return ExamInfos[r];
             }
-
+            
         }
+        /*return result and related students*/
         public DataTable GetResult()
         {
             using (var ctx = new DBModel())
@@ -96,31 +97,55 @@ namespace Components
                 return dt;
             }
         }
-        public class ListtoDataTableConverter
+        /*set  students*/
+        public void SetStudent(Student student)
         {
-            public DataTable ToDataTable<T>(List<T> items)
+            using (var ctx = new DBModel())
             {
-                DataTable dataTable = new DataTable(typeof(T).Name);
-                //Get all the properties
-                PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (PropertyInfo prop in Props)
-                {
-                    //Setting column names as Property names
-                    dataTable.Columns.Add(prop.Name);
-                }
-                foreach (T item in items)
-                {
-                    var values = new object[Props.Length];
-                    for (int i = 0; i < Props.Length; i++)
-                    {
-                        //inserting property values to datatable rows
-                        values[i] = Props[i].GetValue(item, null);
-                    }
-                    dataTable.Rows.Add(values);
-                }
-                //put a breakpoint here and check datatable
-                return dataTable;
+                ctx.Students.Add(student);
+                ctx.SaveChanges();
             }
+        }
+        public  List<Question> GetQuestion(QuestionType type)
+        {
+         
+
+                using (var ctx = new DBModel())
+                {
+
+                    var Questions = (from s in ctx.Questions
+                                     where s.QuestionType == type
+                                     select s
+                                     ).ToList();
+
+                    ctx.SaveChanges();
+
+                    return Questions;
+                }
+        }
+        public List<QuestionView> GetMultipleChoice()
+        {
+
+            using (var ctx = new DBModel())
+            {
+
+                var MultipleChoiceq = (from s in ctx.Questions
+                                       join e in ctx.MultipleChoices on s.ID equals e.ID
+                                       select new QuestionView
+                                       {
+                                           ID = e.ID,
+                                           Hardness = s.Hardnes,
+                                           Hints = s.Hint,
+                                           Titel = s.Title,
+                                           Answers = new List<string> {e.RightAnswer,e.WrongAnswer1,e.WrongAnswer2,e.WrongAnswer3}
+                                       }
+                                 ).ToList();
+
+                ctx.SaveChanges();
+
+                return MultipleChoiceq;
+            }
+
         }
     }
 }

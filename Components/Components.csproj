@@ -51,9 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBInstanc.cs" />
+    <Compile Include="ExamGenerator.cs" />
     <Compile Include="ExamView.cs" />
     <Compile Include="ListtoDataTableConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionView.cs" />
     <Compile Include="ResultView.cs" />
   </ItemGroup>
   <ItemGroup>

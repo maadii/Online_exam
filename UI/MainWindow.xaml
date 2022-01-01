@@ -5,23 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Online Exam" Height="700" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-
-        </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="700" Margin="0,0,0,0" VerticalAlignment="Top" Width="900">
+        Title="Online Exam" Height="729" Width="912" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
+    </Window.Resources>
+    <DockPanel Name="dockPanelMain" Margin="0">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="717" VerticalAlignment="Top" Width="904">
             <TabItem Header="Exam">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,15">
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="179" Margin="10,10,0,0" VerticalAlignment="Top" Width="346">
+                        <StackPanel Grid.ColumnSpan="3" Name="stackPanelTop" >
+                            <Label x:Name="lbl" Content="Exam information " Height="25" Margin="0,0,0,0"  FontSize="14" FontStyle="Italic" FontWeight="DemiBold" />
+                            <Label x:Name="CenterNamelbl" Content="Center Name : " Height="25" Margin="0,0,32,0"/>
+
+                            <Label x:Name="Titlelbl" Content="Title :" Height="25" Margin="0,0,42,0"/>
+                            <Label x:Name="PhoneNumberlbl" Content="PhoneNumber :" Height="25" Margin="0,0,42,0"/>
+                            <Label x:Name="ExamNumberlbl" Content="Exam Number :" Height="25" Margin="0,0,42,0"/>
+                            <Label x:Name="DateTimelbl" Content="Exam Date Time:" Height="25" Margin="0,0,42,0"/>
+                            <Label x:Name="Autorlbl" Content="Autor:" Height="25" Margin="0,0,66,0" />
+                        </StackPanel>
+                    </Border>
+                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="372,194,0,0" VerticalAlignment="Top" Width="199" Click="MouseClick" Height="33"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="179" Margin="361,10,0,0" VerticalAlignment="Top" Width="523">
+                        <StackPanel>
+                            <Label x:Name="label" Content="Student information " Height="25" Margin="0,0,0,0"  FontSize="14" FontStyle="Italic" FontWeight="DemiBold" />
+                            <Label x:Name="label2" Content="Please enter a valid national code. After filling the information by clicking on the start  " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
+                            <Label x:Name="label3" Content=" button, the exam will start. You have 3 minutes to send your answer. Thank you " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
+                            <Label x:Name="label4" Content="Name :" Height="25" Margin="0,0,466,0"/>
+                            <TextBox x:Name="Nametbx" Margin="44,-20,370,0" Height="23"></TextBox>
+                            <Label x:Name="label5" Content="Last Name :" Height="25" Margin="151,-30,297,0" RenderTransformOrigin="0.732,0.4"/>
+                            <TextBox x:Name="lastNametbx" Margin="229,-28 174,0"  Height="25"  ></TextBox>
+                            <Label x:Name="label6" Content="Birthdate :" Height="30" Margin="347,-30,108,0" />
+                            <DatePicker Name="BrithDate" Height="25" Margin="413,-25,10,0" SelectedDate="2/15/2009"/>
+                            <Label x:Name="label7" Content="National Code :" Height="24" Margin="0,10,402,0"/>
+                            <TextBox x:Name="Nationaltbx" Margin="90,-28,297,0" Height="24"></TextBox>
+                            <Label x:Name="label8" Content="Gender :" Height="26" Margin="229,-20,195,0"/>
+                            <ComboBox x:Name="Gendercbx" IsEditable="False" Margin="288,-25,108,0"></ComboBox>
+
+
+
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="10,194,0,0" VerticalAlignment="Top" Width="346">
+                        <StackPanel>
+                            <Label x:Name="Timerlbl" Content="03:00:00 " Height="25" Margin="0,0,0,0"  FontSize="14" FontStyle="Italic" FontWeight="DemiBold" />
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="143" Margin="10,232,0,0" VerticalAlignment="Top" Width="874">
+                        <StackPanel Margin="0,0,0,9">
+
+                            <Label x:Name="label1" Content="Multiple choice questions"/>
+                            <Label x:Name="Q1Tiltle" Content="1-Multiple choice questions" Margin="0,0,595,0"/>
+                            <RadioButton x:Name="Q1A1" Content="RadioButton" Margin="10,0,683,0" Height="21"/>
+                            <RadioButton x:Name="Q1A2" Content="RadioButton" Margin="10,0,603,0" Height="21"/>
+                            <RadioButton x:Name="Q1A3" Content="RadioButton" Margin="10,0,683,0" Height="21"/>
+                            <RadioButton x:Name="Q1A4" Content="RadioButton" Margin="10,0,603,0" Height="21"/>
+                            <Label x:Name="Q2Tiltle" Content="2-Multiple choice questions" Margin="295,-190,276,0" Height="30"/>
+                            <RadioButton x:Name="Q2A1" Content="RadioButton" Margin="300,-148,285,0" Height="20"/>
+                            <RadioButton x:Name="Q2A2" Content="RadioButton" Margin="300,-108,326,0" Height="21"/>
+                            <RadioButton x:Name="Q2A3" Content="RadioButton" Margin="300,-68,304,0" Height="20"/>
+                            <RadioButton x:Name="Q2A4" Content="RadioButton" Margin="300,-26,326,0" Height="21"/>
+                            <Label x:Name="Q3Tiltle" Content="2-Multiple choice questions" Margin="601,-190,22,0" Height="30"/>
+                            <RadioButton x:Name="Q3A1" Content="RadioButton" Margin="605,-148,22,0" Height="20"/>
+                            <RadioButton x:Name="Q3A2" Content="RadioButton" Margin="605,-108,76,0" Height="20"/>
+                            <RadioButton x:Name="Q3A3" Content="RadioButton" Margin="605,-68,76,0" Height="20"/>
+                            <RadioButton x:Name="Q3A4" Content="RadioButton" Margin="605,-26,10,0" Height="22"/>
+                        </StackPanel>
+
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="170" Margin="10,380,0,0" VerticalAlignment="Top" Width="874">
+                        <StackPanel>
+                            <Label x:Name="label9" Content="Descriptive Questions" Margin="0,0,634,0"/>
+                            <Label x:Name="TitleDlbl" Content="Label" Margin="0,0,300,0"/>
+                            <Label x:Name="HintDlbl" Content="Label" Margin="0,0,300,0"/>
+                            <RichTextBox x:Name="Danswer" Margin="10,0" Height="85"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="89" Margin="10,555,0,0" VerticalAlignment="Top" Width="547">
+
+                        <StackPanel >
+                            <Label x:Name="label10" Content="Speaking Questions" Margin="0,0,217,0"/>
+                            <Label x:Name="TitleSlbl" Content="Speaking Questions" Margin="0,0,217,0"/>
+                            <Label x:Name="Hintslbl" Content="Speaking Questions" Margin="0,0,291,0"/>
+                            <Button x:Name="button1" Content="Select" Click="btnOpenFile_Click" Margin="404,-50,25,0" Height="34"/>
+
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
             </TabItem>
             <TabItem Header="Results">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="700" Margin="10,0,0,0" VerticalAlignment="Top" Width="900"/>
+                    <StackPanel>
+                        <DataGrid x:Name="dataGrid" 
+              HorizontalAlignment="Left" 
+              Margin="0,0,0,0" 
+              VerticalAlignment="Top"
+              Width="884"
+              Height="649"
+               AutoGenerateColumns="False"
+              >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Width="300" FontSize="14" Binding="{Binding Path=Name}" FontWeight="Bold" />
+                                <DataGridTextColumn Header="Spend Time" Width="150" Binding="{Binding Path=SpendTime}" FontSize="14" FontWeight="Bold"  />
+                                <DataGridTextColumn Header="Exam Date Time " Width="150"  Binding="{Binding Path=ExamTime}" FontSize="14" FontWeight="Bold"  />
+                                <DataGridTextColumn Header="Corect answer" Width="100" Binding="{Binding Path=Corect}" FontSize="14" FontWeight="Bold"  />
+                                <DataGridTextColumn Header="Wrong answer" Width="100" Binding="{Binding Path=Wrong}"  FontSize="14" FontWeight="Bold"  />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
-
-    </Grid>
+    </DockPanel>
 </Window>
