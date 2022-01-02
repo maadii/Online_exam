@@ -32,13 +32,13 @@
                             <Label x:Name="label2" Content="Please enter a valid national code. After filling the information by clicking on the start  " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
                             <Label x:Name="label3" Content=" button, the exam will start. You have 3 minutes to send your answer. Thank you " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
                             <Label x:Name="label4" Content="Name :" Height="25" Margin="0,0,466,0"/>
-                            <TextBox x:Name="Nametbx" Margin="44,-20,370,0" Height="23"></TextBox>
+                            <TextBox x:Name="Nametbx" Margin="44,-20,370,0" Height="23" PreviewTextInput="EnglishValid" ></TextBox>
                             <Label x:Name="label5" Content="Last Name :" Height="25" Margin="151,-30,297,0" RenderTransformOrigin="0.732,0.4"/>
-                            <TextBox x:Name="lastNametbx" Margin="229,-28 174,0"  Height="25"  ></TextBox>
+                            <TextBox x:Name="lastNametbx" Margin="229,-28 174,0"  Height="25" PreviewTextInput="EnglishValid" ></TextBox>
                             <Label x:Name="label6" Content="Birthdate :" Height="30" Margin="347,-30,108,0" />
                             <DatePicker Name="BrithDate" Height="25" Margin="413,-25,10,0" SelectedDate="2/15/2009"/>
                             <Label x:Name="label7" Content="National Code :" Height="24" Margin="0,10,402,0"/>
-                            <TextBox x:Name="Nationaltbx" Margin="90,-28,297,0" Height="24"></TextBox>
+                            <TextBox x:Name="Nationaltbx" Margin="90,-28,297,0" Height="24" MaxLength="11"></TextBox>
                             <Label x:Name="label8" Content="Gender :" Height="26" Margin="229,-20,195,0"/>
                             <ComboBox x:Name="Gendercbx" IsEditable="False" Margin="288,-25,108,0"></ComboBox>
 
@@ -83,7 +83,7 @@
                             <Label x:Name="label9" Content="Descriptive Questions" Margin="0,0,634,0"/>
                             <Label x:Name="TitleDlbl" Content="Label" Margin="0,0,300,0"/>
                             <Label x:Name="HintDlbl" Content="Label" Margin="0,0,300,0"/>
-                            <RichTextBox x:Name="Danswer" Margin="10,0" Height="85" />
+                            <RichTextBox x:Name="Danswer" Margin="10,0" Height="85" TextChanged="ValidWord" />
 
                         </StackPanel>
                     </Border>

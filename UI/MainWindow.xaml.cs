@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Components;
 using Components.Data;
 using Components.IO;
+using Components.Tools;
 using DataModel.Entitys;
 using Microsoft.Win32;
 using static Components.DBInstanc;
@@ -26,7 +29,7 @@ namespace UI
         string SpeakingAdreseePath= null;
         string SpeakingFileName = null;
         Dictionary<int, string> Answers = new Dictionary<int, string>();
-
+        List<string> badWords = new List<string> { "idiot", "pervert", "stupid", "nigger" };
 
         public MainWindow()
         {
@@ -36,6 +39,7 @@ namespace UI
             //Bind the DataGrid to the  result
             LoadResultGird();
           
+
             Gendercbx.Items.Add("Male");
             Gendercbx.Items.Add("Female");
             Gendercbx.Items.Add("Other");
@@ -59,13 +63,28 @@ namespace UI
         {
             try
             {
-                 Nametbx.IsEnabled = false;
-                lastNametbx.IsEnabled = false;
-                Nationaltbx.IsEnabled = false;
-                BrithDate.IsEnabled = false;
-                Gendercbx.IsEnabled = false;
-                Examini();
-                Countdown(180, TimeSpan.FromSeconds(1), cur => Timerlbl.Content = TimeSpan.FromSeconds(cur).ToString("mm':'ss"));
+                NationalCodeValidation NCV = new NationalCodeValidation();
+                if (NCV.IsValid(Nationaltbx.Text))
+                {
+                    if (string.IsNullOrEmpty(Nametbx.Text) || string.IsNullOrEmpty(lastNametbx.Text))
+                    {
+                        MessageBox.Show("Please fill  the balank ", "Blank name error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        Nametbx.IsEnabled = false;
+                        lastNametbx.IsEnabled = false;
+                        Nationaltbx.IsEnabled = false;
+                        BrithDate.IsEnabled = false;
+                        Gendercbx.IsEnabled = false;
+                        Examini();
+                        Countdown(180, TimeSpan.FromSeconds(1), cur => Timerlbl.Content = TimeSpan.FromSeconds(cur).ToString("mm':'ss"));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please insert valid national code", "National code error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception)
             {
@@ -139,30 +158,45 @@ namespace UI
 
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
-            int Sresult = 0;
-            SaveAnswers saveanswers = new SaveAnswers();
-            saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateTimelbl.Content.ToString(), "gjg", SpeakingAdreseePath,SpeakingFileName);
-            using (var ase = new QuickAssessment(Answers))
+            using (var Validty = new TextValidation())
             {
-                Sresult = ase.Getresults();
-                MessageBox.Show("Your quick result of the multiple choices is " + " " + Sresult.ToString() + " the ultimate result will be announced soon.", "Your results", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            Result R = new Result()
-            {
-                ResultDate = DateTime.Now,
-                ResultNumber = Sresult,
-                SpendTime = DateTime.Parse(Timerlbl.Content.ToString()).Subtract(DateTime.Parse("03:00")).ToString(),
-                Student = new Student()
+             
+                int Sresult = 0;
+                string richText = new TextRange(Danswer.Document.ContentStart, Danswer.Document.ContentEnd).Text;
+                Validty.Text = richText;
+                Validty.ValidNumber = 25;
+                if (Validty.IsValid())
                 {
-                    Name = Nametbx.Text,
-                    LastName = lastNametbx.Text,
-                    NationalCode = Convert.ToInt32(Nationaltbx.Text),
-                    Birthdate = BrithDate.SelectedDate,
-                    Genders = GenderType.Female
+
+                    SaveAnswers saveanswers = new SaveAnswers();
+                    saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateTimelbl.Content.ToString(), richText, SpeakingAdreseePath, SpeakingFileName);
+                    using (var ase = new QuickAssessment(Answers))
+                    {
+                        Sresult = ase.Getresults();
+                        MessageBox.Show("Your quick result of the multiple choices is " + " " + Sresult.ToString() + " the ultimate result will be announced soon.", "Your results", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    Result R = new Result()
+                    {
+                        ResultDate = DateTime.Now,
+                        ResultNumber = Sresult,
+                        SpendTime = DateTime.Parse(Timerlbl.Content.ToString()).Subtract(DateTime.Parse("03:00")).ToString(),
+                        Student = new Student()
+                        {
+                            Name = Nametbx.Text,
+                            LastName = lastNametbx.Text,
+                            NationalCode = Convert.ToInt32(Nationaltbx.Text),
+                            Birthdate = BrithDate.SelectedDate,
+                            Genders = GenderType.Female
+                        }
+                    };
+                    Instance.SetResults(R);
+                    LoadResultGird();
                 }
-            };
-            Instance.SetResults(R);
-            LoadResultGird();
+                else
+                {
+                    MessageBox.Show("The accepted answer is more than" + Validty.ValidNumber + "exclusive words", "number of exclusive words ", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
           
 
@@ -208,6 +242,28 @@ namespace UI
             {
                 Answers.Add(key, value);
             }
+
+        }
+
+        private void EnglishValid(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ValidWord(object sender, TextChangedEventArgs e)
+        {
+            string richText = new TextRange(Danswer.Document.ContentStart, Danswer.Document.ContentEnd).Text;
+            
+            bool badWordInString = badWords.Any(richText.Contains);
+            if(badWordInString)
+            {
+                MessageBox.Show("please remove");
+
+            }
+
 
         }
     } 
