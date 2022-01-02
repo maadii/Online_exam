@@ -116,13 +116,29 @@ namespace DataModel.Seed
             {
               
                   QuestionType = DBModel.QuestionType.MultipleChoice,
-                   Title = " She______ the dishes yesterday.",
+                   Title = "She______ the dishes yesterday.",
                    Hardnes = DBModel.Hardness.Easy,
                     Hint = "You have to choose one. ",
                
                 RightAnswer = " washed ",
                 WrongAnswer1 = " washes",
                 WrongAnswer2 = " wash",
+                WrongAnswer3 = "has have",
+
+
+
+            });
+            defaultMultipleChoice.Add(new MultipleChoice()
+            {
+
+                QuestionType = DBModel.QuestionType.MultipleChoice,
+                Title = "Katie looked very tired because she __ the trombone for so long.",
+                Hardnes = DBModel.Hardness.Easy,
+                Hint = "You have to choose one. ",
+
+                RightAnswer = "had been practising ",
+                WrongAnswer1 = "has practised",
+                WrongAnswer2 = "did practise",
                 WrongAnswer3 = "has have",
 
 
