@@ -27,7 +27,8 @@ namespace DataModel.Seed
                 Nationality= " iranian", 
                 Rank= DBModel.Ranks.Junior,
                 Gender= DBModel.GenderType.Male }, 
-                ExamDate = DateTime.Now, PhoneNumber = 22285173 });
+                ExamDate = DateTime.Now,
+                PhoneNumber = 22285173 });
             defaultExamInfo.Add(new ExamInfo() { Title = "toefl Center", CenterName = "First Center", 
                 Author = new Author() 
             {
@@ -37,7 +38,8 @@ namespace DataModel.Seed
                 Rank = DBModel.Ranks.Senior,
                 Gender = DBModel.GenderType.Female
             }
-            , ExamDate = DateTime.UtcNow, PhoneNumber = 44237546 });
+            , ExamDate = DateTime.Now, 
+                PhoneNumber = 44237546 });
 
             /*
             * Add Question to  Database
@@ -87,7 +89,7 @@ namespace DataModel.Seed
                     Hardnes = DBModel.Hardness.Easy,
                     Hint = "You have to choose one. ",
                 
-                RightAnswer= " both (A, B) ",
+                RightAnswer= " had ",
                  WrongAnswer1= "did you had",
                  WrongAnswer2= " have you gotten",
                   WrongAnswer3= "do you have",
@@ -132,18 +134,18 @@ namespace DataModel.Seed
             {
 
                 QuestionType = DBModel.QuestionType.MultipleChoice,
-                Title = "Katie looked very tired because she __ the trombone for so long.",
+                Title = "___many times every winter in Frankfurt.",
                 Hardnes = DBModel.Hardness.Easy,
                 Hint = "You have to choose one. ",
 
-                RightAnswer = "had been practising ",
-                WrongAnswer1 = "has practised",
-                WrongAnswer2 = "did practise",
-                WrongAnswer3 = "has have",
+                RightAnswer = "It snows ",
+                WrongAnswer1 = "It snowed",
+                WrongAnswer2 = "It is snowing",
+                WrongAnswer3 = "It is snow",
 
 
 
-            });
+            }) ;
 
             defaultResults.Add (new Result(){
                 ResultDate = DateTime.Today,

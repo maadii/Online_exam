@@ -34,29 +34,28 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+            //Bind the Exam info
             LoadExamInfo();
-            ExamGenerator.Instance.GetQustion();
             //Bind the DataGrid to the  result
             LoadResultGird();
           
-
-            Gendercbx.Items.Add("Male");
-            Gendercbx.Items.Add("Female");
-            Gendercbx.Items.Add("Other");
-            Gendercbx.SelectedIndex = 0;
         }
         public void LoadExamInfo()
         {
             var Examinfo = DBInstanc.Instance.GetExamInfos();
             Autorlbl.Content += " " + Examinfo.Autor;
             CenterNamelbl.Content += " " + Examinfo.CenterName;
-            DateTimelbl.Content += " " + Examinfo.ExamDate;
+            DateTimelbl.Content += " " + CESTime.Instance.ChangeZone(Examinfo.ExamDate);
             PhoneNumberlbl.Content += " " + Examinfo.Phonenamber;
             Titlelbl.Content += " " + Examinfo.Title;
+            ExamNumberlbl.Content += " " + Examinfo.ExamNumber;
+            Gendercbx.ItemsSource = Enum.GetValues(typeof(GenderType)).Cast<GenderType>();
+            Gendercbx.SelectedIndex = 0;
         }
         public void LoadResultGird()
         {
             DataTable dataSource = Instance.GetResult();
+          
             dataGrid.ItemsSource = dataSource.DefaultView;
         }
         private void MouseClick(object sender, RoutedEventArgs e)
@@ -91,7 +90,7 @@ namespace UI
                 throw;
             }          
         }
-       
+       //Get Qustion from exam Generator class
         public void Examini()
         {
            List< QuestionView> q= ExamGenerator.Instance.GetQustion();
@@ -113,19 +112,22 @@ namespace UI
 
             Q3Tiltle.Content = q[2].Titel.ToString();
             Q3Tiltle.Tag = q[2].ID.ToString();
-            var shuffledanswerd2 = q[1].Answers.OrderBy(a => rng.Next()).ToList();
+            var shuffledanswerd2 = q[2].Answers.OrderBy(a => rng.Next()).ToList();
             Q3A1.Content = shuffledanswerd2[0].ToString();
             Q3A2.Content = shuffledanswerd2[1].ToString();
             Q3A3.Content = shuffledanswerd2[2].ToString();
-            Q3A4.Content = shuffledanswerd2[3].ToString();
+            Q3A4.Content = shuffledanswerd2[ 3].ToString();
+            Hardnes.Content = " The questions hardness are { " + q[0].Hardness + " ," + q[1].Hardness + " ," + q[2].Hardness+ " }";
 
             var d = ExamGenerator.Instance.GetQustion(QuestionType.Descriptive);
             TitleDlbl.Content = d.Titel;
             HintDlbl.Content = d.Hints;
+            DecHard.Content = " The question hardness is {" + d.Hardness+ " }";
 
             var s = ExamGenerator.Instance.GetQustion(QuestionType.Speaking);
             TitleSlbl.Content = s.Titel;
             Hintslbl.Content = s.Hints;
+            speakHard.Content = " The question hardness is { " + s.Hardness+ " }";
         }
         void Countdown(int count, TimeSpan interval, Action<int> ts)
         {
@@ -134,7 +136,10 @@ namespace UI
             dt.Tick += (_, a) =>
             {
                 if (count-- == 0)
+                {
                     dt.Stop();
+                    SubmitClick(null, new RoutedEventArgs());
+                }
                 else
                     ts(count);
             };
@@ -160,16 +165,19 @@ namespace UI
         {
             using (var Validty = new TextValidation())
             {
-             
+                button1.IsEnabled = false;
+                button2.IsEnabled = false;
                 int Sresult = 0;
                 string richText = new TextRange(Danswer.Document.ContentStart, Danswer.Document.ContentEnd).Text;
                 Validty.Text = richText;
                 Validty.ValidNumber = 25;
+               
                 if (Validty.IsValid())
                 {
 
                     SaveAnswers saveanswers = new SaveAnswers();
                     saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateTimelbl.Content.ToString(), richText, SpeakingAdreseePath, SpeakingFileName);
+                    DateTime Edate = CESTime.Instance.ChangeZone(DateTime.Now);
                     using (var ase = new QuickAssessment(Answers))
                     {
                         Sresult = ase.Getresults();
@@ -177,7 +185,7 @@ namespace UI
                     }
                     Result R = new Result()
                     {
-                        ResultDate = DateTime.Now,
+                        ResultDate = Edate,
                         ResultNumber = Sresult,
                         SpendTime = DateTime.Parse(Timerlbl.Content.ToString()).Subtract(DateTime.Parse("03:00")).ToString(),
                         Student = new Student()
@@ -186,11 +194,12 @@ namespace UI
                             LastName = lastNametbx.Text,
                             NationalCode = Convert.ToInt32(Nationaltbx.Text),
                             Birthdate = BrithDate.SelectedDate,
-                            Genders = GenderType.Female
+                            Genders= GenderType.Male,
                         }
                     };
                     Instance.SetResults(R);
                     LoadResultGird();
+                    ShowHardnes();
                 }
                 else
                 {
@@ -198,8 +207,13 @@ namespace UI
                 }
             }
         }
-          
+         private void ShowHardnes()
+        {
+            Hardnes.Visibility = Visibility.Visible;
+            DecHard.Visibility = Visibility.Visible;
+            speakHard.Visibility = Visibility.Visible;
 
+        }
         private void ItemQ1Selected(object sender, RoutedEventArgs e)
         {
             int key = Convert.ToInt32(Q1Tiltle.Tag);
@@ -260,7 +274,7 @@ namespace UI
             bool badWordInString = badWords.Any(richText.Contains);
             if(badWordInString)
             {
-                MessageBox.Show("please remove");
+                MessageBox.Show("please remove last word ");
 
             }
 

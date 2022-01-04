@@ -55,7 +55,8 @@
                         <StackPanel Margin="0,0,0,-1">
                             <WrapPanel>
                             <Label x:Name="label1" Content="Multiple choice questions"/>
-                            <Label x:Name="Q1Tiltle" Content="1-Multiple choice questions"  Margin="0,0,595,0" Width="287"/>
+                                <Label x:Name="Hardnes" Content="Multiple choice questions" Visibility="Hidden" Foreground="#FFF01414"/>
+                                <Label x:Name="Q1Tiltle" Content="1-Multiple choice questions"  Margin="0,0,595,0" Width="287"/>
                                 <RadioButton x:Name="Q1A1" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,683,0" Height="21"/>
                                 <RadioButton x:Name="Q1A2" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,603,0" Height="21"/>
                                 <RadioButton x:Name="Q1A3" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,683,0" Height="21"/>
@@ -81,6 +82,7 @@
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="170" Margin="10,380,0,0" VerticalAlignment="Top" Width="874">
                         <StackPanel>
                             <Label x:Name="label9" Content="Descriptive Questions" Margin="0,0,634,0"/>
+                            <Label x:Name="DecHard" Content="Descriptive Questions" Margin="126,-25,373,0" Height="25" Visibility="Hidden" Foreground="#FFF01414"/>
                             <Label x:Name="TitleDlbl" Content="Label" Margin="0,0,300,0"/>
                             <Label x:Name="HintDlbl" Content="Label" Margin="0,0,300,0"/>
                             <RichTextBox x:Name="Danswer" Margin="10,0" Height="85" TextChanged="ValidWord" />
@@ -91,7 +93,8 @@
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="89" Margin="10,555,0,0" VerticalAlignment="Top" Width="547">
 
                         <StackPanel >
-                            <Label x:Name="label10" Content="Speaking Questions" Margin="0,0,217,0"/>
+                            <Label x:Name="label10" Content="Speaking Questions" Margin="0,0,419,0"/>
+                            <Label x:Name="speakHard" Content="Speaking Questions" Margin="126,-25,111,0" Visibility="Hidden" Foreground="#FFF01414" />
                             <Label x:Name="TitleSlbl" Content="Speaking Questions" Margin="0,0,217,0"/>
                             <Label x:Name="Hintslbl" Content="Speaking Questions" Margin="0,0,291,0"/>
                             <Button x:Name="button1" Content="Select" Click="btnOpenFile_Click" Margin="404,-50,25,0" Height="34"/>

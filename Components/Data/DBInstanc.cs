@@ -1,4 +1,5 @@
-﻿using DataModel;
+﻿using Components.Tools;
+using DataModel;
 using DataModel.Entitys;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Components
                                  {
                                      Autor = e.Name + " " + e.LastName,
                                      CenterName = s.CenterName,
-                                     ExamDate = s.ExamDate.ToString(),
+                                     ExamDate= s.ExamDate,
                                      ExamNumber = s.ID.ToString(),
                                      Phonenamber = s.PhoneNumber.ToString(),
                                      Title = s.Title
@@ -73,9 +74,10 @@ namespace Components
                                      Name = e.Name + " " + e.LastName,
                                      Corect = (s.ResultNumber).ToString(),
                                      SpendTime= s.SpendTime,
-                                     Wrong= (4 - s.ResultNumber).ToString()
+                                     Wrong= (3 - s.ResultNumber).ToString()
                                  }).ToList();
                 ctx.SaveChanges();
+              
                 ListtoDataTableConverter converter = new ListtoDataTableConverter();
                  dt = converter.ToDataTable(r);
                 return dt;
@@ -99,6 +101,7 @@ namespace Components
                 ctx.SaveChanges();
             }
         }
+        /*Get list of Qusetion by Type*/
         public  List<Question> GetQuestion(QuestionType type)
         {
          
@@ -116,6 +119,7 @@ namespace Components
                     return Questions;
                 }
         }
+        /*Get list of  all Multiple-Choice Qusetion by Type*/
         public List<QuestionView> GetMultipleChoice()
         {
 
