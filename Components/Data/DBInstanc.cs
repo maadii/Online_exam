@@ -83,15 +83,6 @@ namespace Components
                 return dt;
             }
         }
-        /*set  students*/
-        public void SetStudent(Student student)
-        {
-            using (var ctx = new DBModel())
-            {
-                ctx.Students.Add(student);
-                ctx.SaveChanges();
-            }
-        }
         /*set  Result*/
         public void SetResults(Result studentresults)
         {

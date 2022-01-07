@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -26,10 +25,12 @@ namespace UI
     public partial class MainWindow : Window
     {
         private static Random rng = new Random();
-        string SpeakingAdreseePath= null;
-        string SpeakingFileName = null;
-        Dictionary<int, string> Answers = new Dictionary<int, string>();
-        List<string> badWords = new List<string> { "idiot", "pervert", "stupid", "nigger" };
+        private string SpeakingAdreseePath = null;
+        private string SpeakingFileName = null;
+        private Dictionary<int, string> Answers = new Dictionary<int, string>();
+        readonly List<string> badWords = new List<string> { "idiot", "pervert", "stupid", "nigger" };
+        //For sync Exam timers
+        bool ExamStart = true;
 
         public MainWindow()
         {
@@ -77,7 +78,9 @@ namespace UI
                         BrithDate.IsEnabled = false;
                         Gendercbx.IsEnabled = false;
                         Examini();
+                        
                         Countdown(180, TimeSpan.FromSeconds(1), cur => Timerlbl.Content = TimeSpan.FromSeconds(cur).ToString("mm':'ss"));
+                       
                     }
                 }
                 else
@@ -128,23 +131,36 @@ namespace UI
             TitleSlbl.Content = s.Titel;
             Hintslbl.Content = s.Hints;
             speakHard.Content = " The question hardness is { " + s.Hardness+ " }";
+            button.IsEnabled = false;
         }
+        //Timer Count Down Metod 
         void Countdown(int count, TimeSpan interval, Action<int> ts)
         {
-            var dt = new System.Windows.Threading.DispatcherTimer();
-            dt.Interval = interval;
-            dt.Tick += (_, a) =>
-            {
-                if (count-- == 0)
+            
+                var dt = new DispatcherTimer();
+                dt.Interval = interval;
+                dt.Tick += (_, a) =>
                 {
-                    dt.Stop();
-                    SubmitClick(null, new RoutedEventArgs());
-                }
-                else
-                    ts(count);
-            };
-            ts(count);
-            dt.Start();
+                    if (ExamStart)
+                    {
+                        if (count-- == 0)
+                        {
+                            dt.Stop();
+                            SubmitClick(null, new RoutedEventArgs());
+                        }
+                        else
+                            ts(count);
+                    }
+                    else
+                    {
+                        dt.Stop();
+                       
+                    }
+                };
+                ts(count);
+                dt.Start();
+            
+           
         }
 
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
@@ -174,7 +190,7 @@ namespace UI
                
                 if (Validty.IsValid())
                 {
-
+                    ExamStart = false;
                     SaveAnswers saveanswers = new SaveAnswers();
                     saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateTimelbl.Content.ToString(), richText, SpeakingAdreseePath, SpeakingFileName);
                     DateTime Edate = CESTime.Instance.ChangeZone(DateTime.Now);
@@ -187,14 +203,14 @@ namespace UI
                     {
                         ResultDate = Edate,
                         ResultNumber = Sresult,
-                        SpendTime = DateTime.Parse(Timerlbl.Content.ToString()).Subtract(DateTime.Parse("03:00")).ToString(),
+                        SpendTime = DateTime.Parse(Timerlbl.Content.ToString()).Subtract(DateTime.Parse("03:00")).ToString().Remove(0,1),
                         Student = new Student()
                         {
                             Name = Nametbx.Text,
                             LastName = lastNametbx.Text,
                             NationalCode = Convert.ToInt32(Nationaltbx.Text),
-                            Birthdate = BrithDate.SelectedDate,
-                            Genders= GenderType.Male,
+                            Birthdate = BrithDate.SelectedDate.Value.Date,
+                            Genders= (GenderType)Gendercbx.SelectedValue,
                         }
                     };
                     Instance.SetResults(R);
@@ -214,6 +230,7 @@ namespace UI
             speakHard.Visibility = Visibility.Visible;
 
         }
+        /* add question 1 seleted anwers to dictionary*/
         private void ItemQ1Selected(object sender, RoutedEventArgs e)
         {
             int key = Convert.ToInt32(Q1Tiltle.Tag);
@@ -228,6 +245,7 @@ namespace UI
                 Answers.Add(key, value);
             }
         }
+        /* add question 2 seleted anwers to dictionary*/
         private void ItemQ2Selected(object sender, RoutedEventArgs e)
         {
             int key = Convert.ToInt32(Q2Tiltle.Tag);
@@ -243,6 +261,7 @@ namespace UI
             }
 
         }
+        /* add question 3  seleted anwers to dictionary*/
         private void ItemQ3Selected(object sender, RoutedEventArgs e)
         {
             int key = Convert.ToInt32(Q3Tiltle.Tag);
@@ -261,7 +280,7 @@ namespace UI
 
         private void EnglishValid(object sender, TextCompositionEventArgs e)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            if (!Regex.IsMatch(e.Text, "^[a-zA-Z]"))
             {
                 e.Handled = true;
             }
@@ -280,5 +299,5 @@ namespace UI
 
 
         }
-    } 
+    }
 }
