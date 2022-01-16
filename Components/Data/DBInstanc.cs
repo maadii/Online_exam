@@ -16,7 +16,8 @@ namespace Components
     {
         
         //use singleton pattern
-        private static readonly DBInstanc instance = new DBInstanc();          
+        private static readonly DBInstanc instance = new DBInstanc();  
+        
         static DBInstanc()
         {
 
@@ -32,20 +33,9 @@ namespace Components
                 return instance;
             }
         }
-        public void Ini()
-        {
-            using (var ctx = new DBModel())
-            {
-                var stud = new Result() { ResultDate = DateTime.Today, SpendTime = "3:30", Student = new Student() { Name = "moien", LastName = "vdfv", NationalCode = 1235535 } };
-
-                ctx.Results.Add(stud);
-                ctx.SaveChanges();
-            }
-        }
         /*return  Exam information and related author*/
         public ExamView GetExamInfos()
         {
-
             using (var ctx = new DBModel())
             {
 
@@ -64,12 +54,10 @@ namespace Components
                                  ).ToList();
 
                 ctx.SaveChanges();
-
                 Random rand = new Random();
                 int r = rand.Next(0, ExamInfos.Count);
                 return ExamInfos[r];
-            }
-            
+            }            
         }
         /*return result and related students*/
         public DataTable GetResult()
@@ -86,12 +74,8 @@ namespace Components
                                      Corect = (s.ResultNumber).ToString(),
                                      SpendTime= s.SpendTime,
                                      Wrong= (4 - s.ResultNumber).ToString()
-
-                                 }
-                                 ).ToList();
-
+                                 }).ToList();
                 ctx.SaveChanges();
-
                 ListtoDataTableConverter converter = new ListtoDataTableConverter();
                  dt = converter.ToDataTable(r);
                 return dt;
@@ -103,6 +87,15 @@ namespace Components
             using (var ctx = new DBModel())
             {
                 ctx.Students.Add(student);
+                ctx.SaveChanges();
+            }
+        }
+        /*set  Result*/
+        public void SetResults(Result studentresults)
+        {
+            using (var ctx = new DBModel())
+            {
+                ctx.Results.Add(studentresults);
                 ctx.SaveChanges();
             }
         }
@@ -144,6 +137,23 @@ namespace Components
                 ctx.SaveChanges();
 
                 return MultipleChoiceq;
+            }
+
+        }
+        public int GetMultipleChoiceby(int ID,string rightAnswer)
+        {
+
+            using (var ctx = new DBModel())
+            {
+
+                var MultipleChoiceq = (from e in ctx.MultipleChoices
+                                       where e.ID == ID && e.RightAnswer.Equals(rightAnswer)
+                                       select e
+                                           ).ToList();
+                int c = MultipleChoiceq.Count;
+                ctx.SaveChanges();
+
+                return c;
             }
 
         }

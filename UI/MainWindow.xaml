@@ -25,20 +25,20 @@
                             <Label x:Name="Autorlbl" Content="Autor:" Height="25" Margin="0,0,66,0" />
                         </StackPanel>
                     </Border>
-                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="372,194,0,0" VerticalAlignment="Top" Width="199" Click="MouseClick" Height="33"/>
+                    <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="361,194,0,0" VerticalAlignment="Top" Width="180" Click="MouseClick" Height="33"/>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="179" Margin="361,10,0,0" VerticalAlignment="Top" Width="523">
                         <StackPanel>
                             <Label x:Name="label" Content="Student information " Height="25" Margin="0,0,0,0"  FontSize="14" FontStyle="Italic" FontWeight="DemiBold" />
                             <Label x:Name="label2" Content="Please enter a valid national code. After filling the information by clicking on the start  " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
                             <Label x:Name="label3" Content=" button, the exam will start. You have 3 minutes to send your answer. Thank you " Height="28" Margin="0,0,0,0"  FontSize="12" FontStyle="Italic" FontWeight="DemiBold" />
                             <Label x:Name="label4" Content="Name :" Height="25" Margin="0,0,466,0"/>
-                            <TextBox x:Name="Nametbx" Margin="44,-20,370,0" Height="23"></TextBox>
+                            <TextBox x:Name="Nametbx" Margin="44,-20,370,0" Height="23" PreviewTextInput="EnglishValid" ></TextBox>
                             <Label x:Name="label5" Content="Last Name :" Height="25" Margin="151,-30,297,0" RenderTransformOrigin="0.732,0.4"/>
-                            <TextBox x:Name="lastNametbx" Margin="229,-28 174,0"  Height="25"  ></TextBox>
+                            <TextBox x:Name="lastNametbx" Margin="229,-28 174,0"  Height="25" PreviewTextInput="EnglishValid" ></TextBox>
                             <Label x:Name="label6" Content="Birthdate :" Height="30" Margin="347,-30,108,0" />
                             <DatePicker Name="BrithDate" Height="25" Margin="413,-25,10,0" SelectedDate="2/15/2009"/>
                             <Label x:Name="label7" Content="National Code :" Height="24" Margin="0,10,402,0"/>
-                            <TextBox x:Name="Nationaltbx" Margin="90,-28,297,0" Height="24"></TextBox>
+                            <TextBox x:Name="Nationaltbx" Margin="90,-28,297,0" Height="24" MaxLength="11"></TextBox>
                             <Label x:Name="label8" Content="Gender :" Height="26" Margin="229,-20,195,0"/>
                             <ComboBox x:Name="Gendercbx" IsEditable="False" Margin="288,-25,108,0"></ComboBox>
 
@@ -52,24 +52,29 @@
                         </StackPanel>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="143" Margin="10,232,0,0" VerticalAlignment="Top" Width="874">
-                        <StackPanel Margin="0,0,0,9">
-
+                        <StackPanel Margin="0,0,0,-1">
+                            <WrapPanel>
                             <Label x:Name="label1" Content="Multiple choice questions"/>
-                            <Label x:Name="Q1Tiltle" Content="1-Multiple choice questions" Margin="0,0,595,0"/>
-                            <RadioButton x:Name="Q1A1" Content="RadioButton" Margin="10,0,683,0" Height="21"/>
-                            <RadioButton x:Name="Q1A2" Content="RadioButton" Margin="10,0,603,0" Height="21"/>
-                            <RadioButton x:Name="Q1A3" Content="RadioButton" Margin="10,0,683,0" Height="21"/>
-                            <RadioButton x:Name="Q1A4" Content="RadioButton" Margin="10,0,603,0" Height="21"/>
-                            <Label x:Name="Q2Tiltle" Content="2-Multiple choice questions" Margin="295,-190,276,0" Height="30"/>
-                            <RadioButton x:Name="Q2A1" Content="RadioButton" Margin="300,-148,285,0" Height="20"/>
-                            <RadioButton x:Name="Q2A2" Content="RadioButton" Margin="300,-108,326,0" Height="21"/>
-                            <RadioButton x:Name="Q2A3" Content="RadioButton" Margin="300,-68,304,0" Height="20"/>
-                            <RadioButton x:Name="Q2A4" Content="RadioButton" Margin="300,-26,326,0" Height="21"/>
-                            <Label x:Name="Q3Tiltle" Content="2-Multiple choice questions" Margin="601,-190,22,0" Height="30"/>
-                            <RadioButton x:Name="Q3A1" Content="RadioButton" Margin="605,-148,22,0" Height="20"/>
-                            <RadioButton x:Name="Q3A2" Content="RadioButton" Margin="605,-108,76,0" Height="20"/>
-                            <RadioButton x:Name="Q3A3" Content="RadioButton" Margin="605,-68,76,0" Height="20"/>
-                            <RadioButton x:Name="Q3A4" Content="RadioButton" Margin="605,-26,10,0" Height="22"/>
+                            <Label x:Name="Q1Tiltle" Content="1-Multiple choice questions"  Margin="0,0,595,0" Width="287"/>
+                                <RadioButton x:Name="Q1A1" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,683,0" Height="21"/>
+                                <RadioButton x:Name="Q1A2" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,603,0" Height="21"/>
+                                <RadioButton x:Name="Q1A3" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,683,0" Height="21"/>
+                                <RadioButton x:Name="Q1A4" GroupName="Q1" Content="RadioButton" Checked="ItemQ1Selected" Margin="10,0,603,0" Height="21"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                            <Label x:Name="Q2Tiltle" Content="2-Multiple choice questions" Margin="295,-190,276,0" Height="30" Width="263"/>
+                                <RadioButton x:Name="Q2A1" GroupName="Q2" Content="RadioButton" Checked="ItemQ2Selected" Margin="300,-148,285,0" Height="20"/>
+                                <RadioButton x:Name="Q2A2"  GroupName="Q2" Content="RadioButton" Checked="ItemQ2Selected" Margin="300,-108,326,0" Height="21"/>
+                                <RadioButton x:Name="Q2A3" GroupName="Q2" Content="RadioButton"  Checked="ItemQ2Selected" Margin="300,-68,304,0" Height="20"/>
+                                <RadioButton x:Name="Q2A4" GroupName="Q2" Content="RadioButton"  Checked="ItemQ2Selected" Margin="300,-26,326,0" Height="21"/>
+                                </WrapPanel>
+                            <WrapPanel>
+                                <Label x:Name="Q3Tiltle"  Content="2-Multiple choice questions" Margin="601,-190,22,0" Height="30" Width="270"/>
+                                <RadioButton x:Name="Q3A1" GroupName="Q3" Content="RadioButton" Checked="ItemQ3Selected" Margin="605,-148,22,0" Height="20"/>
+                                <RadioButton x:Name="Q3A2" GroupName="Q3" Content="RadioButton" Checked="ItemQ3Selected" Margin="605,-108,76,0" Height="20"/>
+                                <RadioButton x:Name="Q3A3" GroupName="Q3" Content="RadioButton" Checked="ItemQ3Selected" Margin="605,-68,76,0" Height="20"/>
+                                <RadioButton x:Name="Q3A4" GroupName="Q3" Content="RadioButton" Checked="ItemQ3Selected" Margin="605,-26,10,0" Height="22"/>
+                            </WrapPanel>
                         </StackPanel>
 
                     </Border>
@@ -78,7 +83,7 @@
                             <Label x:Name="label9" Content="Descriptive Questions" Margin="0,0,634,0"/>
                             <Label x:Name="TitleDlbl" Content="Label" Margin="0,0,300,0"/>
                             <Label x:Name="HintDlbl" Content="Label" Margin="0,0,300,0"/>
-                            <RichTextBox x:Name="Danswer" Margin="10,0" Height="85"/>
+                            <RichTextBox x:Name="Danswer" Margin="10,0" Height="85" TextChanged="ValidWord" />
 
                         </StackPanel>
                     </Border>
@@ -94,6 +99,7 @@
 
                         </StackPanel>
                     </Border>
+                    <Button x:Name="button2" Content="Submit" HorizontalAlignment="Left" Margin="637,575,0,0" VerticalAlignment="Top" Width="189" Height="57" Click="SubmitClick"/>
                 </Grid>
 
             </TabItem>
