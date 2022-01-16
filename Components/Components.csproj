@@ -55,6 +55,7 @@
     <Compile Include="Data\ExamView.cs" />
     <Compile Include="Data\QuickAssessment.cs" />
     <Compile Include="IO\SaveAnswers.cs" />
+    <Compile Include="Tools\CESTime.cs" />
     <Compile Include="Tools\ListtoDataTableConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\QuestionView.cs" />

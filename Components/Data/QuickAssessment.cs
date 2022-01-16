@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Components.Data
 {
-     public class QuickAssessment :IDisposable 
-        
+    public class QuickAssessment : IDisposable
+
     {
         bool disposed = false;
         // Instantiate a SafeHandle instance.

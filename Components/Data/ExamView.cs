@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Components.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Components
     {
         public string Autor;
         public string CenterName;
-        public string ExamDate;
+        public DateTime? ExamDate;
         public string Title;
         public string Phonenamber;
         public string ExamNumber;
