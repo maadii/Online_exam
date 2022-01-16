@@ -57,6 +57,7 @@
     <Compile Include="Entitys\Author.cs" />
     <Compile Include="Entitys\Config\AuthorC.cs" />
     <Compile Include="Entitys\Config\ExamInfoC.cs" />
+    <Compile Include="Entitys\Config\QuestionC.cs" />
     <Compile Include="Entitys\ExamInfo.cs" />
     <Compile Include="Entitys\MultipleChoice.cs" />
     <Compile Include="Entitys\Question.cs" />

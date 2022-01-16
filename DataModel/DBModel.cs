@@ -27,11 +27,13 @@ namespace DataModel
         public enum GenderType { Male, Female, Other }
         public enum Ranks { Senior, Junior }
         public enum Hardness { Easy, Hard, Advanced }
+        public enum QuestionType { MultipleChoice, Descriptive, Speaking };
 
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<ExamInfo> ExamInfos { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<MultipleChoice> MultipleChoices { get; set; }
         public virtual DbSet<Result> Results { get; set; }
 
 
@@ -39,6 +41,8 @@ namespace DataModel
         {
             modelBuilder.Configurations.Add(new AuthorC());
             modelBuilder.Configurations.Add(new ExamInfoC());
+            //modelBuilder.Configurations.Add(new QuestionC());
+            modelBuilder.Entity<MultipleChoice>().ToTable("MultipleChoice");
             base.OnModelCreating(modelBuilder);
         }
 
