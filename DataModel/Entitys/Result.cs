@@ -11,7 +11,7 @@ namespace DataModel.Entitys
         public int ResultId { get; set; }
         public DateTime? ResultDate { get; set; }
         public string SpendTime { get; set; }
-        public ExamInfo ExamInfo { get; set; }
+        public int ResultNumber { get; set; }
         public Student Student { get; set; }
     }
 }

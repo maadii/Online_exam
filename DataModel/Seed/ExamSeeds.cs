@@ -15,6 +15,7 @@ namespace DataModel.Seed
             IList<ExamInfo> defaultExamInfo = new List<ExamInfo>();
             IList<Question> defaultQuestion = new List<Question>();
             IList<MultipleChoice> defaultMultipleChoice = new List<MultipleChoice>();
+            IList<Result> defaultResults = new List<Result>();
             /*
              * Add Exam inforamtion to  Database
              */
@@ -68,7 +69,7 @@ namespace DataModel.Seed
             });
             defaultQuestion.Add(new Question()
             {
-                QuestionType = DBModel.QuestionType.Speaking,
+               QuestionType = DBModel.QuestionType.Speaking,
                 Title = "How does the media in your country treat famous people?",
                 Hardnes = DBModel.Hardness.Advanced,
                 Hint = "You should talk for more than 3 minutes. ",
@@ -80,31 +81,29 @@ namespace DataModel.Seed
             */
             defaultMultipleChoice.Add(new MultipleChoice()
             {
-                 Question =new Question()
-                 {
-                     QuestionType = DBModel.QuestionType.MultipleChoice,
-                     Title = "How many siblings ________?",
-                     Hardnes = DBModel.Hardness.Easy,
-                     Hint = "You have to choose one. ",
-                 }, 
+                
+                    QuestionType = DBModel.QuestionType.MultipleChoice,
+                  Title = "How many siblings ________?",
+                    Hardnes = DBModel.Hardness.Easy,
+                    Hint = "You have to choose one. ",
+                
                 RightAnswer= " both (A, B) ",
                  WrongAnswer1= "did you had",
                  WrongAnswer2= " have you gotten",
                   WrongAnswer3= "do you have",
-
+                   
                
 
             });
 
             defaultMultipleChoice.Add(new MultipleChoice()
             {
-                Question = new Question()
-                {
+              
                     QuestionType = DBModel.QuestionType.MultipleChoice,
-                    Title = "The superlative form of far is_______.",
-                    Hardnes = DBModel.Hardness.Easy,
-                    Hint = "You have to choose one. ",
-                },
+                   Title = "The superlative form of far is_______.",
+                   Hardnes = DBModel.Hardness.Easy,
+                 Hint = "You have to choose one. ",
+             
                 RightAnswer = " farthest ",
                 WrongAnswer1 = " farther",
                 WrongAnswer2 = " more far",
@@ -115,13 +114,12 @@ namespace DataModel.Seed
             });
             defaultMultipleChoice.Add(new MultipleChoice()
             {
-                Question = new Question()
-                {
-                    QuestionType = DBModel.QuestionType.MultipleChoice,
-                    Title = " She______ the dishes yesterday.",
-                    Hardnes = DBModel.Hardness.Easy,
+              
+                  QuestionType = DBModel.QuestionType.MultipleChoice,
+                   Title = " She______ the dishes yesterday.",
+                   Hardnes = DBModel.Hardness.Easy,
                     Hint = "You have to choose one. ",
-                },
+               
                 RightAnswer = " washed ",
                 WrongAnswer1 = " washes",
                 WrongAnswer2 = " wash",
@@ -130,9 +128,17 @@ namespace DataModel.Seed
 
 
             });
+
+            defaultResults.Add (new Result(){
+                ResultDate = DateTime.Today,
+                SpendTime = "3:30",
+                Student = new Student() { Name = "moien", LastName = "vdfv", NationalCode = 1235535 },
+            });
+
             context.Questions.AddRange(defaultQuestion);
             context.ExamInfos.AddRange(defaultExamInfo);
             context.MultipleChoices.AddRange(defaultMultipleChoice);
+            context.Results.AddRange(defaultResults);
 
             base.Seed(context);
         }

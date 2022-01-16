@@ -23,6 +23,7 @@ namespace DataModel
             Database.SetInitializer(new ExamSeeds());
         }
 
+     
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         public enum GenderType { Male, Female, Other }
         public enum Ranks { Senior, Junior }

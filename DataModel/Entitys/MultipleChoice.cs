@@ -9,10 +9,9 @@ namespace DataModel.Entitys
 {
 
     [Table("MultipleChoice")]
-     public class MultipleChoice:Question
+     public class MultipleChoice : Question
     {
-        public int ID { get; set; }
-        public Question Question { get; set; }   
+        public int ID { get; set; }  
         public string RightAnswer { get; set; }
         public string WrongAnswer1 { get; set; }
         public string WrongAnswer2 { get; set; }
