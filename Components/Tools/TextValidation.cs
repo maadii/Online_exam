@@ -39,7 +39,7 @@ namespace Components.Tools
         private int validNumber = 0;
         public string Text { get => text; set => text = value; }
         public int ValidNumber { get => validNumber; set => validNumber = value; }
-
+        // Check the validity unique words using thevalidNumber value
         public bool IsValid()
         {
             Dictionary<int, string> Answers = new Dictionary<int, string>();

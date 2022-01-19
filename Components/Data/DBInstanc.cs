@@ -18,7 +18,6 @@ namespace Components
         
         //use singleton pattern
         private static readonly DBInstanc instance = new DBInstanc();  
-        
         static DBInstanc()
         {
 
@@ -61,7 +60,7 @@ namespace Components
             }            
         }
         /*return result and related students*/
-        public DataTable GetResult()
+        public DataTable GetResult(int QustionNumber )
         {
             using (var ctx = new DBModel())
             {
@@ -74,7 +73,7 @@ namespace Components
                                      Name = e.Name + " " + e.LastName,
                                      Corect = (s.ResultNumber).ToString(),
                                      SpendTime= s.SpendTime,
-                                     Wrong= (3 - s.ResultNumber).ToString()
+                                     Wrong= (QustionNumber - s.ResultNumber).ToString()
                                  }).ToList();
                 ctx.SaveChanges();
               
@@ -138,18 +137,27 @@ namespace Components
         public int GetMultipleChoiceby(int ID,string rightAnswer)
         {
 
-            using (var ctx = new DBModel())
+            try
+            {
+                using (var ctx = new DBModel())
+                {
+
+                    var MultipleChoiceq = (from e in ctx.MultipleChoices
+                                           where e.ID == ID && e.RightAnswer.Equals(rightAnswer)
+                                           select e
+                                               ).ToList();
+                    int c = MultipleChoiceq.Count;
+                    ctx.SaveChanges();
+
+                    return c;
+                }
+            }
+            catch (Exception e)
             {
 
-                var MultipleChoiceq = (from e in ctx.MultipleChoices
-                                       where e.ID == ID && e.RightAnswer.Equals(rightAnswer)
-                                       select e
-                                           ).ToList();
-                int c = MultipleChoiceq.Count;
-                ctx.SaveChanges();
-
-                return c;
+                throw e;
             }
+           
 
         }
     }

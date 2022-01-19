@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,10 +29,13 @@ namespace UI
         private string SpeakingAdreseePath = null;
         private string SpeakingFileName = null;
         private Dictionary<int, string> Answers = new Dictionary<int, string>();
-        readonly List<string> badWords = new List<string> { "idiot", "pervert", "stupid", "nigger" };
+        int MinWords = Convert.ToInt32 (ConfigurationManager.AppSettings["MinimumWord"]);
+        int MaxQ = Convert.ToInt32(ConfigurationManager.AppSettings["QuestionNumber"]); 
+        readonly List<string> badWords = new List<string>(ConfigurationManager.AppSettings["LimitedWords"].Split(new char[] { ';' }));
+
         //For sync Exam timers
         bool ExamStart = true;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -55,7 +59,7 @@ namespace UI
         }
         public void LoadResultGird()
         {
-            DataTable dataSource = Instance.GetResult();
+            DataTable dataSource = Instance.GetResult(MaxQ);
           
             dataGrid.ItemsSource = dataSource.DefaultView;
         }
@@ -176,7 +180,7 @@ namespace UI
                 
             }
         }
-
+        /*Submit answers*/
         private void SubmitClick(object sender, RoutedEventArgs e)
         {
             using (var Validty = new TextValidation())
@@ -186,7 +190,7 @@ namespace UI
                 int Sresult = 0;
                 string richText = new TextRange(Danswer.Document.ContentStart, Danswer.Document.ContentEnd).Text;
                 Validty.Text = richText;
-                Validty.ValidNumber = 25;
+                Validty.ValidNumber =MinWords;
                
                 if (Validty.IsValid())
                 {
@@ -277,7 +281,7 @@ namespace UI
             }
 
         }
-
+        /*Check the text language*/
         private void EnglishValid(object sender, TextCompositionEventArgs e)
         {
             if (!Regex.IsMatch(e.Text, "^[a-zA-Z]"))
@@ -285,7 +289,7 @@ namespace UI
                 e.Handled = true;
             }
         }
-
+        /*Check for limited words*/
         private void ValidWord(object sender, TextChangedEventArgs e)
         {
             string richText = new TextRange(Danswer.Document.ContentStart, Danswer.Document.ContentEnd).Text;
