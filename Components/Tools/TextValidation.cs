@@ -42,6 +42,10 @@ namespace Components.Tools
         // Check the validity unique words using thevalidNumber value
         public bool IsValid()
         {
+            try
+            {
+
+           
             Dictionary<int, string> Answers = new Dictionary<int, string>();
             bool v = false;
             string[] words = Text.Split(' ');
@@ -64,6 +68,12 @@ namespace Components.Tools
                 v = false;
             }
             return v;
+            }
+            catch (Exception)
+            {
+
+                throw e;
+            }
         }
     }
 }
