@@ -69,7 +69,7 @@ namespace Components.Tools
             }
             return v;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw e;

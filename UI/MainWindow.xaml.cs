@@ -304,7 +304,7 @@ namespace UI
                 Regex reg = new Regex(item, RegexOptions.IgnoreCase);
                 foreach (Match find in reg.Matches(richText))
                 {
-
+                    
                     badWordInString = true;
                     i += "," + item;
                 }
