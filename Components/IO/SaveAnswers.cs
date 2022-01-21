@@ -38,12 +38,12 @@ namespace Components.IO
 
             disposed = true;
         }
-        public  void WriteAnswer(string StudentName,string StudentCode,string ExamDate,string DecAnswer,string SpeakingAdresee,string SpeakingfileName)
+        public  void WriteAnswer(string StudentName,string StudentCode,string ExamDate,string DecAnswer,string SpeakingAdresee,string SpeakingfileName,int resultMQ)
         {
            try
            {
                 // Copy audio file answers object.
-                string folderName = @"AnswerFolder";
+                string folderName = @"AnswerFolder//"+ StudentName;
                 string filename = Path.Combine(folderName,StudentName + ".xml");
                 Directory.CreateDirectory(folderName);
                 string sourceFile = SpeakingAdresee;
@@ -67,7 +67,8 @@ namespace Components.IO
                     writer.WriteElementString("Date",ExamDate);
                     writer.WriteElementString("Descriptive_answers",DecAnswer);
                    writer.WriteElementString("speaking_answers", SpeakingfileName);
-                writer.WriteEndElement();
+                    writer.WriteElementString("Multiple_Question_result", resultMQ.ToString());
+                    writer.WriteEndElement();
                 writer.Flush();
                 writer.Close();
             } // End Using writer 

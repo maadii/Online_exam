@@ -25,7 +25,7 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static Random rng = new Random();
+        private static Random rand = new Random();
         private string SpeakingAdreseePath = null;
         private string SpeakingFileName = null;
         private Dictionary<int, string> Answers = new Dictionary<int, string>();
@@ -35,6 +35,7 @@ namespace UI
 
         //For sync Exam timers
         bool ExamStart = true;
+        string DateOfExam;
         
         public MainWindow()
         {
@@ -48,9 +49,10 @@ namespace UI
         public void LoadExamInfo()
         {
             var Examinfo = DBInstanc.Instance.GetExamInfos();
+            DateOfExam = CESTime.Instance.ChangeZone(Examinfo.ExamDate).ToString();
             Autorlbl.Content += " " + Examinfo.Autor;
             CenterNamelbl.Content += " " + Examinfo.CenterName;
-            DateTimelbl.Content += " " + CESTime.Instance.ChangeZone(Examinfo.ExamDate);
+            DateTimelbl.Content += " " + DateOfExam;
             PhoneNumberlbl.Content += " " + Examinfo.Phonenamber;
             Titlelbl.Content += " " + Examinfo.Title;
             ExamNumberlbl.Content += " " + Examinfo.ExamNumber;
@@ -103,7 +105,7 @@ namespace UI
            List< QuestionView> q= ExamGenerator.Instance.GetQustion();
             Q1Tiltle.Content = q[0].Titel.ToString();
             Q1Tiltle.Tag = q[0].ID.ToString();
-            var shuffledanswerd = q[0].Answers.OrderBy(a => rng.Next()).ToList();
+            var shuffledanswerd = q[0].Answers.OrderBy(a => rand.Next()).ToList();
             Q1A1.Content= shuffledanswerd[0].ToString();
             Q1A2.Content = shuffledanswerd[1].ToString();
             Q1A3.Content = shuffledanswerd[2].ToString();
@@ -111,7 +113,7 @@ namespace UI
 
             Q2Tiltle.Content = q[1].Titel.ToString();
             Q2Tiltle.Tag = q[1].ID.ToString();
-            var shuffledanswerd1 = q[1].Answers.OrderBy(a => rng.Next()).ToList();
+            var shuffledanswerd1 = q[1].Answers.OrderBy(a => rand.Next()).ToList();
             Q2A1.Content = shuffledanswerd1[0].ToString();
             Q2A2.Content = shuffledanswerd1[1].ToString();
             Q2A3.Content = shuffledanswerd1[2].ToString();
@@ -119,7 +121,7 @@ namespace UI
 
             Q3Tiltle.Content = q[2].Titel.ToString();
             Q3Tiltle.Tag = q[2].ID.ToString();
-            var shuffledanswerd2 = q[2].Answers.OrderBy(a => rng.Next()).ToList();
+            var shuffledanswerd2 = q[2].Answers.OrderBy(a => rand.Next()).ToList();
             Q3A1.Content = shuffledanswerd2[0].ToString();
             Q3A2.Content = shuffledanswerd2[1].ToString();
             Q3A3.Content = shuffledanswerd2[2].ToString();
@@ -196,13 +198,14 @@ namespace UI
                 {
                     ExamStart = false;
                     SaveAnswers saveanswers = new SaveAnswers();
-                    saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateTimelbl.Content.ToString(), richText, SpeakingAdreseePath, SpeakingFileName);
+                  
                     DateTime Edate = CESTime.Instance.ChangeZone(DateTime.Now);
                     using (var ase = new QuickAssessment(Answers))
                     {
                         Sresult = ase.Getresults();
                         MessageBox.Show("Your quick result of the multiple choices is " + " " + Sresult.ToString() + " the ultimate result will be announced soon.", "Your results", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
+                    saveanswers.WriteAnswer(Nametbx.Text + lastNametbx.Text, Nationaltbx.Text, DateOfExam, richText, SpeakingAdreseePath, SpeakingFileName, Sresult);
                     Result R = new Result()
                     {
                         ResultDate = Edate,
