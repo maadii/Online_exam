@@ -129,5 +129,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Image x:Name="Image1_png" Margin="0,0,0,-22" Source="Image1.png" Stretch="Fill" Width="898"/>
     </DockPanel>
 </Window>

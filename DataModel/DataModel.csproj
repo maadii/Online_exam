@@ -54,21 +54,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBModel.cs" />
-    <Compile Include="Entitys\Author.cs" />
-    <Compile Include="Entitys\Config\AuthorC.cs" />
-    <Compile Include="Entitys\Config\ExamInfoC.cs" />
-    <Compile Include="Entitys\Config\QuestionC.cs" />
-    <Compile Include="Entitys\ExamInfo.cs" />
-    <Compile Include="Entitys\MultipleChoice.cs" />
-    <Compile Include="Entitys\Question.cs" />
-    <Compile Include="Entitys\Result.cs" />
-    <Compile Include="Entitys\Student.cs" />
+    <Compile Include="Entities\Author.cs" />
+    <Compile Include="Entities\Config\AuthorC.cs" />
+    <Compile Include="Entities\Config\ExamInfoC.cs" />
+    <Compile Include="Entities\Config\QuestionC.cs" />
+    <Compile Include="Entities\ExamInfo.cs" />
+    <Compile Include="Entities\MultipleChoice.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Result.cs" />
+    <Compile Include="Entities\Student.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seed\ExamSeeds.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

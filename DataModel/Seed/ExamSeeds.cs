@@ -148,9 +148,9 @@ namespace DataModel.Seed
             }) ;
 
             defaultResults.Add (new Result(){
-                ResultDate = DateTime.Today,
+                ResultDate = DateTime.Today.Date,
                 SpendTime = "3:30",
-                Student = new Student() { Name = "moien", LastName = "vdfv", NationalCode = 1235535 },
+                Student = new Student() { Name = "mohsen", LastName = "maadi", NationalCode = 1235535 },
             });
 
             context.Questions.AddRange(defaultQuestion);

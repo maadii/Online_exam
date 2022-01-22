@@ -15,7 +15,7 @@ namespace DataModel.Entitys
         public string CenterName { get; set; }
         public int PhoneNumber { get; set; }
         public DateTime? ExamDate { get; set; }
-         public Author Author { get; set; }
+         public virtual Author Author { get; set; }
 
     }
 }
